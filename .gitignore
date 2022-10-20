@@ -1,8 +1,6 @@
 .gradle
 .idea
 HELP.md
-gradlew.bat
-settings.gradle
 
 
 .DS_Store
