@@ -16,4 +16,10 @@ public class ProductController {
     {
         return productRepository.save(productModel);
     }
+
+    @GetMapping("/{id}")
+    public ProductModel getProduct(@PathVariable int id)
+    {
+        return productRepository.findById((long) id).orElse(null);
+    }
 }
