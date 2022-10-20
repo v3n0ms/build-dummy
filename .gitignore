@@ -6,3 +6,13 @@ gradle
 gradlew
 gradlew.bat
 settings.gradle
+
+
+.DS_Store
+build/
+src/.DS_Store
+src/main/.DS_Store
+src/main/java/.DS_Store
+src/main/java/com/.DS_Store
+src/main/java/com/POSG/.DS_Store
+
