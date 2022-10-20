@@ -1,6 +1,8 @@
 package com.POSG.PosG.Price;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import java.util.Date;
 import java.util.Objects;
@@ -8,14 +10,15 @@ import java.util.Objects;
 @Entity
 public class PriceModel {
     @Id
-    private int id;
+    private long id;
     private int price;
     private Date startDate;
     private Date endDate;
     private int vatCode;
+    @Enumerated(EnumType.ORDINAL)
     private Currency currency;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -88,7 +91,7 @@ public class PriceModel {
                 '}';
     }
 
-    public PriceModel(int id, int price, Date startDate, Date endDate, int vatCode, Currency currency) {
+    public PriceModel(long id, int price, Date startDate, Date endDate, int vatCode, Currency currency) {
         this.id = id;
         this.price = price;
         this.startDate = startDate;
