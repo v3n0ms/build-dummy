@@ -1,8 +1,6 @@
 .gradle
 .idea
 HELP.md
-build.gradle
-gradle
 gradlew
 gradlew.bat
 settings.gradle
