@@ -7,10 +7,10 @@ jobs:
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_ROOT_PASSWORD: ''
-    working_directory: ~/Retail---POS-backend
+    # working_directory: ~/Retail---POS-backend
     steps:
       - run:
-          command: ./gradlew build
+          command: ls -la 
       - persist_to_workspace:
           root: .
           paths:
