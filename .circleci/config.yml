@@ -11,7 +11,7 @@ jobs:
     checkout:
     steps:
       - run:
-          command: ls -la 
+          command: ls -la /
       - persist_to_workspace:
           root: .
           paths:
