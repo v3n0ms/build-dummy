@@ -8,6 +8,7 @@ jobs:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_ROOT_PASSWORD: ''
     # working_directory: ~/Retail---POS-backend
+    checkout:
     steps:
       - run:
           command: ls -la 
