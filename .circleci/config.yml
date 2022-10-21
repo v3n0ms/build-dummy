@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: openjdk:11-jre-slim
+      - image: circleci/openjdk:11-browsers-legacy
       - image: mysql
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
