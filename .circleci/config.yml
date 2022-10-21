@@ -11,7 +11,7 @@ jobs:
     steps:
       - checkout
       - run:
-          command: ls -la 
+          command: ./gradlew build 
       - persist_to_workspace:
           root: .
           paths:
@@ -26,6 +26,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: ''
     working_directory: ~/Retail---POS-backend
     steps:
+      - checkout
       - attach_workspace:
           at: .
       - run:
@@ -39,6 +40,7 @@ jobs:
       - image: docker:stable
     working_directory: ~/Retail---POS-backend
     steps:
+      - checkout
       - attach_workspace:
           at: .
       - run:
