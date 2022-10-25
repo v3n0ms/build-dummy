@@ -43,7 +43,7 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          command: docker-compose -d . up
+          command: docker compose up -d
       - persist_to_workspace:
           root: .
           paths:
