@@ -37,7 +37,7 @@ public class PriceControllerTest {
     {
         PriceModel priceModel=new PriceModel(1L,10,new Date(2022-02-25),new Date(2022-12-25),124356,INR);
 
-        when(priceRepository.findById((int) priceModel.getId())).thenReturn(Optional.of(priceModel));
+        when(priceRepository.findById((long) priceModel.getId())).thenReturn(Optional.of(priceModel));
 
         assertEquals(priceModel,priceController.getProduct((int) priceModel.getId()));
 

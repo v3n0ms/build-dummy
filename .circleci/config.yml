@@ -7,7 +7,7 @@ jobs:
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_ROOT_PASSWORD: ''
-    # working_directory: ~/Retail---POS-backend
+          MYSQL_DATABASE: pos
     steps:
       - checkout
       - run:
@@ -24,7 +24,7 @@ jobs:
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_ROOT_PASSWORD: ''
-    working_directory: ~/Retail---POS-backend
+          MYSQL_DATABASE: pos
     steps:
       - checkout
       - attach_workspace:
@@ -38,7 +38,7 @@ jobs:
   deploy:
     docker:
       - image: docker:stable
-    working_directory: ~/Retail---POS-backend
+
     steps:
       - checkout
       - attach_workspace:
@@ -48,6 +48,7 @@ jobs:
           environment:
             COMPOSE_VERSION: '2.12.0'
           command: |
+            which curl
             curl -L "https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o ~/docker-compose
             chmod +x ~/docker-compose
             sudo mv ~/docker-compose /usr/local/bin/docker-compose
