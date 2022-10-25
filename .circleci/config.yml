@@ -37,7 +37,7 @@ jobs:
             - .
   deploy:
     docker:
-      - image: docker
+      - image: ubuntu-2204:2022.04.2
 
     steps:
       - checkout
