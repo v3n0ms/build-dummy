@@ -54,7 +54,7 @@ jobs:
             mv ~/docker-compose /usr/local/bin/docker-compose
 
       - run:
-          command: which docker-compose
+          command: /usr/local/bin/docker-compose -f docker-compose.yml up
       - persist_to_workspace:
           root: .
           paths:
