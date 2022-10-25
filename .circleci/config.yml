@@ -48,7 +48,9 @@ jobs:
           environment:
             COMPOSE_VERSION: '2.12.0'
           command: |
-            apt-get update && apt-get install curl -y && apt-get install apt-utils -y && apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+            apt-get update && apt-get install curl -y && apt-get install apt-utils -y 
+            chmod a+r /etc/apt/keyrings/docker.gpg
+            apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
             docker compose -f docker-compose.yml up
       - persist_to_workspace:
           root: .
