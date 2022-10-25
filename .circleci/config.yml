@@ -37,7 +37,7 @@ jobs:
             - .
   deploy:
     docker:
-      - image: debian
+      - image: ubuntu
 
     steps:
       - checkout
@@ -49,7 +49,10 @@ jobs:
             COMPOSE_VERSION: '2.12.0'
           command: |
             apt-get update && apt-get install curl -y
-            curl -L -K "https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" | bash | -f docker-compose.yml up
+            curl -L "https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o ~/docker-compose
+            chmod +x ~/docker-compose
+            mv ~/docker-compose /usr/local/bin/docker-compose
+            docker-compose -f docker-compose.yml up
       - persist_to_workspace:
           root: .
           paths:
