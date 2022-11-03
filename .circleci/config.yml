@@ -12,7 +12,9 @@ jobs:
     steps:
       - checkout
       - run:
-          command: SPRING_APPLICATION_JSON='{"spring":{"datasource":{"username":"demouser","password":"demopassword","url":"jdbc:mysql://127.0.0.1:3306/pos"}}}' ./gradlew build
+          command: |
+            sleep 10
+            SPRING_APPLICATION_JSON='{"spring":{"datasource":{"username":"demouser","password":"demopassword","url":"jdbc:mysql://127.0.0.1:3306/pos"}}}' ./gradlew build
       - persist_to_workspace:
           root: .
           paths:
