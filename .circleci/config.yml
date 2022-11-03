@@ -12,7 +12,7 @@ jobs:
     steps:
       - checkout
       - run:
-          command: echo $DB_PASSWORD
+          command: echo ${DB_PASSWORD}
       - persist_to_workspace:
           root: .
           paths:
