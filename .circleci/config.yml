@@ -16,7 +16,7 @@ jobs:
     steps:
       - checkout
       - run:
-          command: echo ${DB_PASSWORD}
+          command: ./gradlew build
       - persist_to_workspace:
           root: .
           paths:
