@@ -13,10 +13,10 @@ jobs:
       - checkout
       - run:
           command: |
-            echo "DB_PASSWORD=demopassword" >> .env
-            echo "DB_NAME=pos" >> .env
-            echo "DB_USER=demouser" >> .env
-            cat .env
+            echo "DB_PASSWORD=${DB_PASSWORD}" >> .env
+            echo "DB_NAME=${DB_NAME}" >> .env
+            echo "DB_USER=${DB_USER}" >> .env
+            ls -la
             ./gradlew build
       - persist_to_workspace:
           root: .
