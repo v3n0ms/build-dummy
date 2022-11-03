@@ -5,9 +5,10 @@ jobs:
       - image: openjdk:11
       - image: mysql
         environment:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_ROOT_PASSWORD: ''
-          MYSQL_DATABASE: pos
+          MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+          MYSQL_USER: ${DB_USER}
+          MYSQL_PASSWORD: ${DB_PASSWORD}
+          MYSQL_DATABASE: ${DB_NAME}
     steps:
       - checkout
       - run:
@@ -22,9 +23,10 @@ jobs:
       - image: openjdk:11-jre-slim
       - image: mysql
         environment:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_ROOT_PASSWORD: ''
-          MYSQL_DATABASE: pos
+          MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+          MYSQL_USER: ${DB_USER}
+          MYSQL_PASSWORD: ${DB_PASSWORD}
+          MYSQL_DATABASE: ${DB_NAME}
     steps:
       - checkout
       - attach_workspace:
