@@ -1,7 +1,8 @@
 version: 2.1
 jobs:
   set_env:
-    executor: docker:stable
+    docker:
+      - image: docker:stable
     steps:
       - run: echo "$MY_ENV_FILE" | base64 -d > .env
       - persist_to_workspace:
