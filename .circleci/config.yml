@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  
+
   build:
     docker:
       - image: openjdk:11
@@ -46,7 +46,7 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          command: docker compose up -d
+          command: gcloud --help
       - persist_to_workspace:
           root: .
           paths:
