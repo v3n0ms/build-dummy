@@ -38,7 +38,7 @@ jobs:
           root: .
           paths:
             - .
-  deploy:
+  build_and_push:
     machine:
       image: ubuntu-2204:2022.04.2
     steps:
@@ -65,6 +65,6 @@ workflows:
       - tests:
           requires:
             - build
-      - deploy:
+      - build_and_push:
           requires:
             - tests
