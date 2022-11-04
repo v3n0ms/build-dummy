@@ -23,9 +23,7 @@ jobs:
 #      - attach_workspace:
 #          at: .
       - run:
-          command: |
-            sleep 10
-            DB_PASSWORD=demopassword DB_USER=demouser DB_NAME=pos ./gradlew build
+          command: DB_PASSWORD=demopassword DB_USER=demouser DB_NAME=pos ./gradlew build
       - persist_to_workspace:
           root: .
           paths:
