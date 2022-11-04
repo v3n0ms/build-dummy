@@ -1,14 +1,6 @@
 version: 2.1
 jobs:
-#  set_env:
-#    docker:
-#      - image: docker:stable
-#    steps:
-#      - run: echo "$MY_ENV_FILE" | base64 -d > .env
-#      - persist_to_workspace:
-#          root: .
-#          paths:
-#            - .
+  
   build:
     docker:
       - image: openjdk:11
@@ -20,8 +12,6 @@ jobs:
           MYSQL_DATABASE: pos
     steps:
       - checkout
-#      - attach_workspace:
-#          at: .
       - run:
           command: DB_PASSWORD=demopassword DB_USER=demouser DB_NAME=pos ./gradlew build
       - persist_to_workspace:
@@ -34,16 +24,16 @@ jobs:
       - image: openjdk:11-jre-slim
       - image: mysql
         environment:
-          MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-          MYSQL_USER: ${DB_USER}
-          MYSQL_PASSWORD: ${DB_PASSWORD}
-          MYSQL_DATABASE: ${DB_NAME}
+          MYSQL_ROOT_PASSWORD: demopassword
+          MYSQL_USER: demouser
+          MYSQL_PASSWORD: demopassword
+          MYSQL_DATABASE: pos
     steps:
       - checkout
       - attach_workspace:
           at: .
       - run:
-          command: ./gradlew test
+          command: DB_PASSWORD=demopassword DB_USER=demouser DB_NAME=pos ./gradlew test
       - persist_to_workspace:
           root: .
           paths:
@@ -66,10 +56,7 @@ workflows:
   version: 2
   build-test-deploy:
     jobs:
-#      - set_env
       - build
-#          requires:
-#            - set_env
       - tests:
           requires:
             - build
