@@ -46,7 +46,12 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          command: gcloud --help
+          command: |
+            echo "$MY_CREDS_FILE" | base64 -d > credentials.json
+            gcloud auth activate-service-account --key-file=credentials.json
+            gcloud auth configure-docker -q
+            docker build -t "asia.gcr.io/dummy-project-365407/pos" .
+            docker push "asia.gcr.io/dummy-project-365407/pos"
       - persist_to_workspace:
           root: .
           paths:
