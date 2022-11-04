@@ -14,10 +14,10 @@ jobs:
       - image: openjdk:11
       - image: mysql
         environment:
-          MYSQL_ROOT_PASSWORD: demopassword
-          MYSQL_USER: demouser
-          MYSQL_PASSWORD: demopassword
-          MYSQL_DATABASE: pos
+          MYSQL_ROOT_PASSWORD: $DB_ROOT_PASSWORD
+          MYSQL_USER: $DB_USER
+          MYSQL_PASSWORD: $DB_PASSWORD
+          MYSQL_DATABASE: $DB_NAME
     steps:
       - checkout
 #      - attach_workspace:
