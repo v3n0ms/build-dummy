@@ -69,7 +69,7 @@ workflows:
   build-test-deploy:
     jobs:
 #      - set_env
-      - build:
+      - build
 #          requires:
 #            - set_env
       - tests:
