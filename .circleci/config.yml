@@ -57,6 +57,25 @@ jobs:
           paths:
             - .
 
+  deploy:
+    machine:
+      image: ubuntu-2204:2022.04.2
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          command: |
+            gcloud compute instance-groups managed create example-group \
+                --base-instance-name our-vm \
+                --size 3 \
+                --template pos-instance-template
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+
 workflows:
   version: 2
   build-test-deploy:
