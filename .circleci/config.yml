@@ -70,7 +70,8 @@ jobs:
                 --base-instance-name our-vm \
                 --size 1 \
                 --template pos-instance-template \
-                --project dummy-project-365407
+                --project dummy-project-365407 \
+                --region us-east4
 
       - persist_to_workspace:
           root: .
