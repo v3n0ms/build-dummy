@@ -68,8 +68,10 @@ jobs:
             gcloud auth activate-service-account --key-file=instance.json
             gcloud compute instance-groups managed create example-group \
                 --base-instance-name our-vm \
-                --size 3 \
-                --template pos-instance-template
+                --size 1 \
+                --template pos-instance-template \
+                --project dummy-project-365407
+
       - persist_to_workspace:
           root: .
           paths:
