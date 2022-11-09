@@ -71,8 +71,8 @@ jobs:
                 --size 1 \
                 --template pos-instance-template \
                 --project dummy-project-365407 \
-                --region us-east2
-            
+                --region us-west2
+
       - persist_to_workspace:
           root: .
           paths:
