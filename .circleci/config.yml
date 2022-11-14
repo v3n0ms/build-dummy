@@ -46,7 +46,6 @@ jobs:
       - run:
           command: |
             echo "$MY_CREDS_FILE" | base64 -d > credentials.json
-            DB_USER=root DB_NAME=pos DB_PASSWORD=Sup3rp4ss  DB_HOST=34.150.220.24 ./gradlew build
             gcloud auth activate-service-account --key-file=credentials.json
             gcloud auth configure-docker -q
             docker build -t "asia.gcr.io/dummy-project-365407/pos" .
