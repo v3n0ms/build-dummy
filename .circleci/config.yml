@@ -90,6 +90,6 @@ workflows:
       - build_and_push:
           requires:
             - tests
-      - deploy:
-          requires:
-            - build_and_push
+#      - deploy:
+#          requires:
+#            - build_and_push
