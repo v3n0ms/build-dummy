@@ -64,15 +64,9 @@ jobs:
       - checkout
       - run:
           command: |
-            echo "$INSTANCE_CREDS_FILE" | base64 -d > instance.json
-            gcloud auth activate-service-account --key-file=instance.json
-            gcloud compute instance-groups managed create example-group \
-                --base-instance-name our-vm \
-                --size 1 \
-                --template pos-instance-template \
-                --project dummy-project-365407 \
-                --region us-west2
-
+            echo "$MY_GCE_CREDS_FILE" | base64 -d > credentials.json
+            gcloud auth activate-service-account --key-file=credentials.json
+            gcloud compute instance-groups managed rolling-action start-update pos-group --version template=pos-instance-template
       - persist_to_workspace:
           root: .
           paths:
@@ -90,6 +84,6 @@ workflows:
       - build_and_push:
           requires:
             - tests
-#      - deploy:
-#          requires:
-#            - build_and_push
+      - deploy:
+          requires:
+            - build_and_push
