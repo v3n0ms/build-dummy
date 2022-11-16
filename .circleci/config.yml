@@ -68,7 +68,7 @@ jobs:
             gcloud auth activate-service-account --key-file=credentials.json
             gcloud compute instance-groups managed rolling-action start-update INSTANCE_GROUP_NAME \
             --version=template=pos-instance-template --project dummy-project-365407 \
-            [--zone=us-west2-a | --region=us-west2]
+            --zone=us-west2-a  --region=us-west2
       - persist_to_workspace:
           root: .
           paths:
