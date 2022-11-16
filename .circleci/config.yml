@@ -66,7 +66,7 @@ jobs:
           command: |
             echo "$MY_GCE_CREDS_FILE" | base64 -d > credentials.json
             gcloud auth activate-service-account --key-file=credentials.json
-            gcloud compute instance-groups managed rolling-action start-update pos-group --version template=pos-instance-template
+            gcloud compute instance-groups managed rolling-action start-update pos-group --version template=pos-instance-template --project dummy-project-365407 --region us-east4
       - persist_to_workspace:
           root: .
           paths:
