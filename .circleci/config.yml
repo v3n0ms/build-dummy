@@ -101,7 +101,7 @@ jobs:
           name: Run Talisman
           # || true to ensure that the following steps can carry on irrespective of the success/failure of this step
           command: 
-            ~/.talisman/talisman_linux_386 --scanWithHtml || true
+            ~/.talisman/talisman_linux_386 --scanWithHtml
             
       - store_artifacts:
           path: ~/.talisman/talisman_html_report
