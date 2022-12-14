@@ -102,6 +102,11 @@ jobs:
           # || true to ensure that the following steps can carry on irrespective of the success/failure of this step
           command: 
             ~/.talisman/talisman_linux_386 --scanWithHtml || true
+            
+      - run:
+          name: find Talisman
+          # || true to ensure that the following steps can carry on irrespective of the success/failure of this step
+          command: 
             find / -type d -name "talisman_html_report" 2>/dev/null
       - store_artifacts:
           path: ~/Retail---POS-backend/talisman_html_report
