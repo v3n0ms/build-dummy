@@ -106,20 +106,40 @@ jobs:
       - store_artifacts:
           path: ~/.talisman/talisman_html_report
 
+  sonar_scan:
+    machine:
+      image: ubuntu-2204:2022.04.2
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          command: |
+            docker run -p 9000:9000 --name sq -d --platform linux/x86_64 sonarqube:lts-community
+            ./gradlew sonar
+            -Dsonar.host.url=http://127.0.0.1:9000
+            -Dsonar.language=java -Dsonar.login=admin
+            -Dsonar.password=admin -Dsonar. projectKey=possonar
+            curl -s -u admin:admin http://localhost:9000/api/qualitygates/project_status?projectKey=possonar
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
 workflows:
   version: 2
   build-test-deploy:
     jobs:
-      - talisman-scan
-      - build:
-          requires:
-            - talisman-scan
-      - tests:
-          requires:
-            - build
-      - build_and_push:
-          requires:
-            - tests
+      - sonar_scan
+#      - talisman-scan
+#      - build:
+#          requires:
+#            - talisman-scan
+#      - tests:
+#          requires:
+#            - build
+#      - build_and_push:
+#          requires:
+#            - tests
 #      - deploy:
 #          requires:
 #            - build_and_push
