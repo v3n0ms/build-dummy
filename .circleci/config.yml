@@ -116,7 +116,7 @@ jobs:
       - run:
           command: |
             docker run -d --name sonarqube -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true -p 9000:9000 sonarqube:latest
-            ./gradlew sonar -Dsonar.host.url=http://127.0.0.1:9000 -Dsonar.language=java -Dsonar.verbose=true -Dsonar.login=admin -Dsonar.password=admin -Dsonar.projectKey=possonar --stacktrace
+            ./gradlew sonar -Dsonar.host.url=http://34.100.248.33:9000 -Dsonar.language=java -Dsonar.verbose=true -Dsonar.login=admin -Dsonar.password=newadmin -Dsonar.projectKey=possonar --stacktrace
             curl -s -u admin:admin http://localhost:9000/api/qualitygates/project_status?projectKey=possonar
       - persist_to_workspace:
           root: .
