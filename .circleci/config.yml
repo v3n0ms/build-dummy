@@ -128,7 +128,7 @@ jobs:
             sudo apt update
             sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
             sudo docker run -d --name sonarqube -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true -p 9000:9000 sonarqube:latest'
-            gcloud compute --project=dummy-project-365407 firewall-rules create default-allow-http \
+            gcloud compute --project=dummy-project-365407 firewall-rules create default-allow-sonar-http \
             --direction=INGRESS --priority=1000 --network=default --action=ALLOW \
             --rules=tcp:80 --source-ranges=0.0.0.0/0 --target-tags=http-server
       - run:
