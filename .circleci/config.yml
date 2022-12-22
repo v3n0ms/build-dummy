@@ -139,6 +139,11 @@ jobs:
             echo $IP
             token=$(curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "name=token" -d "type=GLOBAL_ANALYSIS_TOKEN" -u admin:admin http://${IP}:9000/api/user_tokens/generate | awk -F ":" '{print $4}' | awk -F "," '{print $1}'| awk -F '"' '{print $2}')
             ./gradlew sonar -Dsonar.host.url=http://${IP}:9000 -Dsonar.language=java -Dsonar.verbose=true -Dsonar.login=${token} -Dsonar.projectKey=possonar --stacktrace
+      - run:
+          name: delete gcp sonarqube server
+          command: |
+            gcloud compute instances delete --project=dummy-project-365407 sonarpos
+            gcloud compute firewall-rules delete --project=dummy-project-365407 default-allow-sonar-http
       - persist_to_workspace:
           root: .
           paths:
