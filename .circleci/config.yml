@@ -114,9 +114,29 @@ jobs:
       - attach_workspace:
           at: .
       - run:
+          name: create gcp sonarqube server
           command: |
-            token=$(curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "name=token" -d "type=GLOBAL_ANALYSIS_TOKEN" -u admin:newadmin http://34.100.248.33:9000/api/user_tokens/generate | awk -F ":" '{print $4}' | awk -F "," '{print $1}'| awk -F '"' '{print $2}')
-            ./gradlew sonar -Dsonar.host.url=http://34.100.248.33:9000 -Dsonar.language=java -Dsonar.verbose=true -Dsonar.login=${token} -Dsonar.projectKey=possonar --stacktrace
+            echo "$MY_GCE_CREDS_FILE" | base64 -d > credentials.json
+            gcloud auth activate-service-account --key-file=credentials.json
+            gcloud compute instances create sonarpos \
+              --project=dummy-project-365407 --image-family=ubuntu-2204-lts --tags=http-server\
+             --zone=asia-south1-c --metadata=startup-script='#! /bin/bash
+            sudo apt update
+            sudo apt install --yes apt-transport-https ca-certificates curl gnupg2 software-properties-common
+            curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+            sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+            sudo apt update
+            sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
+            sudo docker run -d --name sonarqube -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true -p 9000:9000 sonarqube:latest'
+            gcloud compute --project=dummy-project-365407 firewall-rules create default-allow-http \
+            --direction=INGRESS --priority=1000 --network=default --action=ALLOW \
+            --rules=tcp:80 --source-ranges=0.0.0.0/0 --target-tags=http-server
+      - run:
+          name: run sonarscan
+          command: |
+            IP = gcloud compute instances list --filter="sonarpos" --format "get(networkInterfaces[0].accessConfigs[0].natIP)"
+            token=$(curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "name=token" -d "type=GLOBAL_ANALYSIS_TOKEN" -u admin:admin http://${IP}:9000/api/user_tokens/generate | awk -F ":" '{print $4}' | awk -F "," '{print $1}'| awk -F '"' '{print $2}')
+            ./gradlew sonar -Dsonar.host.url=http://${IP}:9000 -Dsonar.language=java -Dsonar.verbose=true -Dsonar.login=${token} -Dsonar.projectKey=possonar --stacktrace
       - persist_to_workspace:
           root: .
           paths:
