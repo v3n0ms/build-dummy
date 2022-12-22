@@ -115,9 +115,9 @@ jobs:
           at: .
       - run:
           command: |
+            token=$(curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "name=token" -u admin:newadmin http://34.100.248.33:9000/api/user_tokens/generate | awk -F ":" '{print $4}' | awk -F "," '{print $1}')
             docker run -d --name sonarqube -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true -p 9000:9000 sonarqube:latest
-            ./gradlew sonar -Dsonar.host.url=http://34.100.248.33:9000 -Dsonar.language=java -Dsonar.verbose=true -Dsonar.login=admin -Dsonar.password=newadmin -Dsonar.projectKey=possonar --stacktrace
-            curl -s -u admin:admin http://localhost:9000/api/qualitygates/project_status?projectKey=possonar
+            ./gradlew sonar -Dsonar.host.url=http://34.100.248.33:9000 -Dsonar.language=java -Dsonar.verbose=true -Dsonar.login=$token -Dsonar.projectKey=possonar --stacktrace
       - persist_to_workspace:
           root: .
           paths:
