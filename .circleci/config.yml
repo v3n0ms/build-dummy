@@ -130,12 +130,13 @@ jobs:
             sudo docker run -d --name sonarqube -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true -p 9000:9000 sonarqube:latest'
             gcloud compute --project=dummy-project-365407 firewall-rules create default-allow-sonar-http \
             --direction=INGRESS --priority=1000 --network=default --action=ALLOW \
-            --rules=tcp:80 --source-ranges=0.0.0.0/0 --target-tags=http-server
+            --rules=tcp:9000 --source-ranges=0.0.0.0/0 --target-tags=http-server
             sleep 200
       - run:
           name: run sonarscan
           command: |
             IP=$(gcloud compute instances list --filter="sonarpos" --format "get(networkInterfaces[0].accessConfigs[0].natIP)")
+            echo $IP
             token=$(curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "name=token" -d "type=GLOBAL_ANALYSIS_TOKEN" -u admin:admin http://${IP}:9000/api/user_tokens/generate | awk -F ":" '{print $4}' | awk -F "," '{print $1}'| awk -F '"' '{print $2}')
             ./gradlew sonar -Dsonar.host.url=http://${IP}:9000 -Dsonar.language=java -Dsonar.verbose=true -Dsonar.login=${token} -Dsonar.projectKey=possonar --stacktrace
       - persist_to_workspace:
