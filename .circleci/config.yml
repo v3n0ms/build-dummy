@@ -134,7 +134,7 @@ jobs:
             gcloud compute --project=dummy-project-365407 firewall-rules create default-allow-sonar-http \
             --direction=INGRESS --priority=1000 --network=default --action=ALLOW \
             --rules=tcp:9000 --source-ranges=0.0.0.0/0 --network=sonar-network --target-tags=http-server
-            sleep 200
+            sleep 250
       - run:
           name: run sonarscan
           command: |
