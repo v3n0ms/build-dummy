@@ -145,14 +145,14 @@ jobs:
             token=$( echo $tokenjs | awk -F ":" '{print $4}' | awk -F "," '{print $1}'| awk -F '"' '{print $2}')
             echo $token
             ./gradlew sonar -Dsonar.host.url=http://${IP}:9000 -Dsonar.language=java -Dsonar.verbose=true -Dsonar.login=${token} -Dsonar.projectKey=possonar --stacktrace
-      - run:
-          name: delete gcp sonarqube server
-          command: |
-            gcloud compute instances delete --project=dummy-project-365407 --zone=us-west4-b sonarpos --quiet
-            gcloud compute firewall-rules delete --project=dummy-project-365407 default-allow-sonar-http --quiet
-            echo "$NETWORK_CREDS_FILE" | base64 -d > network_creds.json
-            gcloud auth activate-service-account --key-file=network_creds.json
-            gcloud compute networks delete --project=dummy-project-365407 sonar-network --quiet
+#      - run:
+#          name: delete gcp sonarqube server
+#          command: |
+#            gcloud compute instances delete --project=dummy-project-365407 --zone=us-west4-b sonarpos --quiet
+#            gcloud compute firewall-rules delete --project=dummy-project-365407 default-allow-sonar-http --quiet
+#            echo "$NETWORK_CREDS_FILE" | base64 -d > network_creds.json
+#            gcloud auth activate-service-account --key-file=network_creds.json
+#            gcloud compute networks delete --project=dummy-project-365407 sonar-network --quiet
       - persist_to_workspace:
           root: .
           paths:
