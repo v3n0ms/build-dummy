@@ -146,7 +146,7 @@ jobs:
       - run:
           name: delete gcp sonarqube server
           command: |
-            gcloud compute instances delete --project=dummy-project-365407 sonarpos --quiet
+            gcloud compute instances delete --project=dummy-project-365407 --zone=us-west4-b sonarpos --quiet
             gcloud compute firewall-rules delete --project=dummy-project-365407 default-allow-sonar-http --quiet
             echo "$NETWORK_CREDS_FILE" | base64 -d > network_creds.json
             gcloud auth activate-service-account --key-file=network_creds.json
