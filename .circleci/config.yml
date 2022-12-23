@@ -116,6 +116,9 @@ jobs:
       - run:
           name: create gcp sonarqube server
           command: |
+            echo "$NETWORK_CREDS_FILE" | base64 -d > network_creds.json
+            gcloud auth activate-service-account --key-file=network_creds.json
+            gcloud compute networks create --project=dummy-project-365407 sonar-network
             echo "$MY_GCE_CREDS_FILE" | base64 -d > credentials.json
             gcloud auth activate-service-account --key-file=credentials.json
             gcloud compute instances create sonarpos \
@@ -142,8 +145,11 @@ jobs:
       - run:
           name: delete gcp sonarqube server
           command: |
-            gcloud compute instances delete --project=dummy-project-365407 sonarpos
-            gcloud compute firewall-rules delete --project=dummy-project-365407 default-allow-sonar-http
+            gcloud compute instances delete --project=dummy-project-365407 sonarpos --quiet
+            gcloud compute firewall-rules delete --project=dummy-project-365407 default-allow-sonar-http --quiet
+            echo "$NETWORK_CREDS_FILE" | base64 -d > network_creds.json
+            gcloud auth activate-service-account --key-file=network_creds.json
+            gcloud compute networks delete --project=dummy-project-365407 sonar-network --quiet
       - persist_to_workspace:
           root: .
           paths:
