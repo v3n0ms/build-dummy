@@ -123,7 +123,7 @@ jobs:
             gcloud auth activate-service-account --key-file=credentials.json
             gcloud compute instances create sonarpos \
               --project=dummy-project-365407 --machine-type=e2-medium --image-project=ubuntu-os-cloud --image-family=ubuntu-2004-lts --tags=http-server\
-             --zone=us-west4-b --metadata=startup-script='#! /bin/bash
+             --zone=us-west4-b --network=sonar-network --metadata=startup-script='#! /bin/bash
             sudo apt update
             sudo apt install --yes apt-transport-https ca-certificates curl gnupg2 software-properties-common
             curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
