@@ -133,7 +133,7 @@ jobs:
             sudo docker run -d --name sonarqube -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true -p 9000:9000 sonarqube:latest'
             gcloud compute --project=dummy-project-365407 firewall-rules create default-allow-sonar-http \
             --direction=INGRESS --priority=1000 --network=default --action=ALLOW \
-            --rules=tcp:9000 --source-ranges=0.0.0.0/0 --target-tags=http-server
+            --rules=tcp:9000 --source-ranges=0.0.0.0/0 --network=sonar-network --target-tags=http-server
             sleep 200
       - run:
           name: run sonarscan
