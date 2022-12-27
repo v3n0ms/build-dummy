@@ -145,6 +145,11 @@ jobs:
             token=$( echo $tokenjs | awk -F ":" '{print $4}' | awk -F "," '{print $1}'| awk -F '"' '{print $2}')
             echo $token
             ./gradlew sonar -Dsonar.host.url=http://${IP}:9000 -Dsonar.language=java -Dsonar.verbose=true -Dsonar.login=${token} -Dsonar.projectKey=possonar --stacktrace
+            sudo apt install jq
+            curl -u "admin:admin" "http://${IP}:9000/api/measures/component?metricKeys=coverage,ncloc,complexity,violations&component=possonar
+            echo $(curl -u "admin:admin" "http://${IP}:9000/api/measures/component?metricKeys=coverage,ncloc,complexity,violations&component=possonar") | jq > sonarqube_result.json
+      - store_artifacts:
+          path: ./sonarqube_result.json
 #      - run:
 #          name: delete gcp sonarqube server
 #          command: |
