@@ -148,7 +148,7 @@ jobs:
             sudo apt install jq
             sleep 40
             curl -u "admin:admin" "http://${IP}:9000/api/measures/component?metricKeys=coverage,ncloc,complexity,violations&component=possonar"
-            echo $(curl -u "admin:admin" "http://${IP}:9000/api/measures/component?metricKeys=coverage,ncloc,complexity,violations&component=possonar") | jq > sonarqube_report.json
+            echo $(curl -u "admin:admin" "http://${IP}:9000/api/measures/component?metricKeys=coverage,ncloc,complexity,violations&component=possonar&additionalFields=period,metrics") | jq > sonarqube_report.json
       - store_artifacts:
           path: ./sonarqube_report.json
 #      - run:
