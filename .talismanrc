@@ -2,5 +2,5 @@ fileignoreconfig:
 - filename: docker-compose.yml
   checksum: f0bdf9e8de8b3aa06dea1cfe58a697bce28b97b03a708d2d75dafd24f4526d76
 - filename: .circleci/config.yml
-  checksum: a0bf7afd0db68b9763588c9bc31adc3d8fb37e6ca36944ac907e943b131438fa
+  checksum: 560ef14ed7fb55c120ae6f5a72ae702b940ab9a36efdea78642cce53c5b5c6a9
 version: ""

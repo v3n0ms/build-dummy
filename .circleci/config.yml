@@ -148,9 +148,9 @@ jobs:
             sudo apt install jq
             sleep 40
             curl -u "admin:admin" "http://${IP}:9000/api/measures/component?metricKeys=coverage,ncloc,complexity,violations&component=possonar"
-            echo $(curl -u "admin:admin" "http://${IP}:9000/api/measures/component?metricKeys=coverage,ncloc,complexity,violations&component=possonar") | jq > sonarqube_result.json
+            echo $(curl -u "admin:admin" "http://${IP}:9000/api/measures/component?metricKeys=coverage,ncloc,complexity,violations&component=possonar") | jq > sonarqube_report.json
       - store_artifacts:
-          path: ./sonarqube_result.json
+          path: ./sonarqube_report.json
 #      - run:
 #          name: delete gcp sonarqube server
 #          command: |
